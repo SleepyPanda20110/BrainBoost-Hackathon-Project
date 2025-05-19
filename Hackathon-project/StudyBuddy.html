@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="flashcard.css">
+</head>
+<body>
+    <h1>Study Buddy</h1>
+    <p>Create flashcards, find a buddy to study with and reward your hardwork through our games</p>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Click Menu</title>
+
+</head>
+<body>
+
+  <div class="menu-container">
+    <div class="hamburger" id="hamburgerButton">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div class="dropdown" id="dropdownMenu">
+      <a href="mainPage.html">Home Page</a>
+      <a href="flashCardDisplay.html">Your Flashcards</a>
+      <a href="flashcardgenerator.html">Flash Card Generator</a>
+      <a href="assignmentListPage.html">Asignment List</a>
+      <a href="minigame.html">Minigame</a>
+    </div>
+  </div>
+
+  <script>
+    const button = document.getElementById("hamburgerButton");
+    const menu = document.getElementById("dropdownMenu");
+
+    button.addEventListener("click", function (event) {
+      event.stopPropagation(); // prevent closing immediately
+      menu.classList.toggle("show");
+    });
+
+    window.addEventListener("click", function (event) {
+      if (!menu.contains(event.target) && !button.contains(event.target)) {
+        menu.classList.remove("show");
+      }
+    });
+  </script>
+
+</body>
+</html>
+
+

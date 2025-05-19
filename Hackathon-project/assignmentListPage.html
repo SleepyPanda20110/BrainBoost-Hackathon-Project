@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment List</title>
+  <link rel="stylesheet" href="flashcard.css">
+  <style>
+    .menu-container {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    .hamburger {
+      width: 30px;
+      cursor: pointer;
+    }
+    .hamburger div {
+      background-color: #fffbfb;
+      height: 4px;
+      margin: 6px 0;
+    }
+    .dropdown {
+      display: none;
+      flex-direction: column;
+      background: white;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    .dropdown a {
+      text-decoration: none;
+      margin: 5px 0;
+      color: black;
+    }
+    .dropdown.show {
+      display: flex;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+    }
+    .column {
+      flex: 1;
+      background-color: #f2f2f2;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      min-height: 150px;
+    }
+    .column1 {
+      flex: 1;
+      background-color: #f2f2f2;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      min-height: 150px;
+    }
+    .column2 {
+      flex: 1;
+      background-color: #f2f2f2;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      min-height: 150px;
+    }
+    p {
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Assignment List</h1>
+
+
+  <label id="one" for="nameInput">Enter your assignment name here:</label><br>
+  <input type="text" id="nameInput" name="assignment" placeholder="Read 2 chapters"><br><br>
+
+  <label id ="two" for="subjectInput">Enter the class the assignment is due for:</label><br>
+  <input type="text" id="subjectInput" name="class" placeholder="English"><br><br>
+
+  <label id="three" for="dateInput">Enter the date the assignment is due:</label><br>
+  <input type="text" id="dateInput" name="date" placeholder="01/01/0001">
+
+<button id="enterButton" onclick="enterAssignment()">Enter</button>
+
+  <!-- Hamburger Menu -->
+  <div class="menu-container">
+    <div class="hamburger" id="hamburgerButton">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div class="dropdown" id="dropdownMenu">
+      <a href="mainPage.html">Home Page</a>
+      <a href="flashCardDisplay.html">Your Flashcards</a>
+      <a href="flashcardgenerator.html">Flash Card Generator</a>
+      <a href="minigame.html">Minigame</a>
+    </div>
+  </div>
+
+  <div class="container">
+  <div class="column" id="column">
+    <strong>Assignments:</strong>
+    <p id="info1">enter</p>
+    <p>info</p>
+    <p>here</p>
+  </div>
+  <div class="column1" id="column1">
+    <strong>Classes</strong>
+    <p id="info2">enter</p>
+    <p>info</p>
+    <p>here</p>
+  </div>
+  <div class="column2" id="column2">
+    <strong>Due Date</strong>
+    <p id="info3">enter</p>
+    <p>info</p>
+    <p>here</p>
+  </div>
+</div>
+
+  <script src="functions.js" defer></script>
+  <script>
+    const button = document.getElementById("hamburgerButton");
+    const menu = document.getElementById("dropdownMenu");
+
+    button.addEventListener("click", function (event) {
+      event.stopPropagation();
+      menu.classList.toggle("show");
+    });
+
+    window.addEventListener("click", function (event) {
+      if (!menu.contains(event.target) && !button.contains(event.target)) {
+        menu.classList.remove("show");
+      }
+    });
+  </script>
+
+</body>
+</html>

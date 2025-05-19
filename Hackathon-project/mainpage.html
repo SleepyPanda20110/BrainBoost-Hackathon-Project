@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="flashcard.css">
+</head>
+<body>
+    <h1>BrainBoost</h1>
+    <h3>Welcome to Brain Boost, your all-in-one academic companion designed to keep you organized, engaged, and connected. Our platform helps students stay on top of their work with an intuitive assignment list that automatically sorts and prioritizes tasks for easy tracking. Jump into studying with flashcards or create your own to personalize your learning experience. Whether you’re planning, studying, or making new friends, Brain Boost is here to power your potential.</h3>
+
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Click Menu</title>
+  
+</head>
+<body>
+
+  <div class="menu-container">
+    <div class="hamburger" id="hamburgerButton">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div class="dropdown" id="dropdownMenu">
+      <a href="flashcardgenerator.html">Flash Card Generator </a>
+      <a href="flashCardDisplay.html">Your Flashcards</a>
+      <a href="assignmentListPage.html">Asignment List</a>
+      <a href="minigame.html">Minigame</a>
+    </div>
+  </div>
+  <img src="brainboost.png" alt="brain image thingy", id = "brai">
+  <script>
+    const button = document.getElementById("hamburgerButton");
+    const menu = document.getElementById("dropdownMenu");
+
+    button.addEventListener("click", function (event) {
+      event.stopPropagation(); // prevent closing immediately
+      menu.classList.toggle("show");
+    });
+
+    window.addEventListener("click", function (event) {
+      if (!menu.contains(event.target) && !button.contains(event.target)) {
+        menu.classList.remove("show");
+      }
+
+
+    });
+  </script>
+
+</body>
+</html>

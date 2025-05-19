@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+    <title>Your Flashcards</title>
+    <link rel="stylesheet" href="flashcard.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="functions.js" defer></script>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Click Menu</title>
+
+
+<body>
+
+  <div class="menu-container">
+    <div class="hamburger" id="hamburgerButton">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div class="dropdown" id="dropdownMenu">
+      <a href="mainPage.html">Home Page</a>
+      <a href="flashcardgenerator.html">Flash Card Generator</a>
+      <a href="assignmentListPage.html">Asignment List</a>
+      <a href="minigame.html">Minigame</a>
+    </div>
+  </div>
+
+  <script>
+    const button = document.getElementById("hamburgerButton");
+    const menu = document.getElementById("dropdownMenu");
+
+    button.addEventListener("click", function (event) {
+      event.stopPropagation(); // prevent closing immediately
+      menu.classList.toggle("show");
+    });
+
+    window.addEventListener("click", function (event) {
+      if (!menu.contains(event.target) && !button.contains(event.target)) {
+        menu.classList.remove("show");
+      }
+    });
+  </script>
+
+</body>
+</html>
+<body>
+    <h1>Flash Card Deck</h1>
+    <h3 id="loadText">Click load to display your cards</h3>
+    <div class="grey-box">            
+        <textarea id="flashcardTextArea" name="flashCardText" readonly readonly style="resize: none;">
+
+
+          
+        </textarea>
+    </div> 
+    <div class="arrow-button" style="display: flex; justify-content: space-between;">
+        <button id="left_arrow" onclick="leftPress()">⟵ Previous</button>
+        <button id="right_arrow" onclick="rightPress()">Next ⟶ </button>
+    </div>
+  
+    <button onclick="load()">load</button>
+        <button id="flip_button" onclick="flipCard()" >Flip Card </button>
+    
+    
+
+<script>
+
+    
+</script>
+</head>
+</body>
+</html>

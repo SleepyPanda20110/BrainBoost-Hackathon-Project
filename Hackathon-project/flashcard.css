@@ -1,0 +1,255 @@
+h1 {
+    color: rgb(249, 249, 249);
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Sans Mono', monospace;
+    margin-top: 15px;
+    padding: 15px;
+    font-size: 60px;
+}
+
+p {
+  color: white;
+  width: 80%;
+  padding: 10px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+a {
+    display: inline-block;
+    text-align: center;
+}
+h3 {
+  color: white;
+  width: 1200px;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 30px;
+}
+body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgb(34, 31, 31);
+    }
+
+    .menu-container {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+    }
+
+    .hamburger {
+      width: 30px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hamburger div {
+      height: 4px;
+      background-color: rgb(246, 240, 240);
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+
+    .dropdown {
+      display: none;
+      flex-direction: column;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 50px;
+      position: absolute;
+    }
+
+    .dropdown.show {
+      display: flex;
+    }
+
+    .dropdown a {
+      text-decoration: none;
+      color: #333;
+      padding: 5px;
+      transition: 0.2s;
+    } 
+
+    .dropdown a:hover {
+      background-color: #ddd;
+    }
+
+#left_arrow {
+  width: 200px;
+  padding: 20px;
+  background-color: rgb(227, 222, 222);
+  color: rgb(50, 48, 48);
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 45px;
+  border-radius: 12px;
+} 
+
+#right_arrow {
+  width: 200px;
+  padding: 20px;
+  background-color: rgb(242, 238, 238);
+  color: rgb(50, 48, 48);
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  margin-right: 45px;
+  border-radius: 12px;
+}
+.grey-box {
+  background-color: #f0f0f0; 
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 700px;
+  height: 400px;
+  font-family: sans-serif;
+  margin: 0 auto;
+}
+
+#brai {
+  width: 40%;
+  max-width: 700px;
+  margin: 5px auto;
+  display: block;
+  margin-bottom: 20px auto;
+}
+
+#flip_button {
+  width: 200px;
+  padding: 20px;
+  background-color: rgb(247, 244, 244);
+  color: rgb(14, 13, 13);
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  border-radius: 12px;
+}
+
+.flashcard_Box {
+  background-color: #f0f0f0; 
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 700px;
+  height: 400px;
+  font-family: sans-serif;
+  margin: 0 auto;
+}
+
+button {
+  width: 200px;
+  padding: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  color: rgb(50, 48, 48);
+  margin: 0 auto;
+  display: block;
+}
+
+.flashcard {
+  width: 300px;
+  padding: 20px;
+  background-color: rgb(34, 31, 31);
+  color: rgb(50, 48, 48);
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.flashcard-form .form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.flashcard-form label {
+  width: 100px;
+  margin-right: 10px;
+}
+
+.flashcard-form input {
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+}
+
+
+
+label {
+  color: black;
+}
+#flashCardTextArea {
+  background-color: #ffffff; 
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 700px;
+  height: 400px;
+  font-family: sans-serif;
+  margin: 0 auto;
+}
+
+.assignmentLabels {
+  color: white;
+}
+
+.wha {
+  width: 200px;
+  padding: 20px;
+  background-color: rgb(247, 244, 244);
+  color: rgb(14, 13, 13);
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  border-radius: 12px;
+}
+
+#loadText {
+  margin-top: auto;
+}
+
+#one {
+  color: white;
+}
+
+#two {
+  color: white;
+}
+
+#three {
+  color: white;
+}
+
+#enterButton {
+  border-radius: 12px;
+}
+
+#info1 {
+  color: black;
+}
+
+#info2 {
+  color: black;
+}
+
+#info3 {
+  color: black;
+}

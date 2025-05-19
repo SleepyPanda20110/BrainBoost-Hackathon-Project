@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <h1>Tower Defense Math Game</h1>
+  <meta charset="UTF-8">
+  <title>Click Menu</title>
+  <link rel="stylesheet" href="flashcard.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f0f0f0;
+      text-align: center;
+    }
+    .menu-container {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+    .hamburger {
+      width: 30px;
+      cursor: pointer;
+    }
+    .hamburger div {
+      background-color: #333;
+      height: 4px;
+      margin: 6px 0;
+    }
+    .dropdown {
+      display: none;
+      flex-direction: column;
+      background: white;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    .dropdown a {
+      text-decoration: none;
+      margin: 5px 0;
+      color: black;
+    }
+    .dropdown.show {
+      display: flex;
+    }
+    canvas {
+      border: 2px solid black;
+      background: #fff;
+      margin-top: 50px;
+    }
+    #startWaveBtn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hamburger Menu -->
+  <div class="menu-container">
+    <div class="hamburger" id="hamburgerButton">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div class="dropdown" id="dropdownMenu">
+      <a href="flashcardgenerator.html">Flash Card Generator </a>
+      <a href="flashCardDisplay.html">Your Flashcards</a>
+      <a href="assignmentListPage.html">Asignment List</a>
+      <a href="mainpage.html">Home Page</a>
+    </div>
+  </div>
+
+  <!-- Canvas for Game -->
+  <canvas id="gameCanvas" width="800" height="600"></canvas>
+  <div>
+    <button id="startWaveBtn">Start Wave</button>
+  </div>
+  <div id="gameStats"></div>
+
+  <script>
+    const button = document.getElementById("hamburgerButton");
+    const menu = document.getElementById("dropdownMenu");
+
+    button.addEventListener("click", function (event) {
+      event.stopPropagation();
+      menu.classList.toggle("show");
+    });
+
+    window.addEventListener("click", function (event) {
+      if (!menu.contains(event.target) && !button.contains(event.target)) {
+        menu.classList.remove("show");
+      }
+    });
+  </script>
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+let towers = [];
+let bullets = [];
+let enemies = [];
+let gold = 100;
+let wave = 1;
+let frame = 0;
+let selectedTower = null;
+let waveInProgress = false;
+
+const towerPrices = {
+  basic: 30,
+  sniper: 50,
+  blaster: 100,
+  fast: 80
+};
+
+function updateUI() {
+  document.getElementById("gameStats").innerText = `Wave: ${wave} | Gold: ${gold}`;
+}
+
+class Tower {
+  constructor(x, y, type) {
+    this.x = x;
+    this.y = y;
+    this.type = type;
+    this.cooldown = 0;
+    this.range = 150;
+  }
+
+  draw() {
+    ctx.fillStyle = "gray";
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 20, 0, Math.PI * 2);
+    ctx.fill();
+
+    if (this.type === "basic") {
+      ctx.fillStyle = "black";
+      ctx.fillRect(this.x - 5, this.y - 15, 10, 20);
+    } else if (this.type === "sniper") {
+      ctx.fillStyle = "blue";
+      ctx.fillRect(this.x - 3, this.y - 25, 6, 30);
+    } else if (this.type === "blaster") {
+      ctx.fillStyle = "red";
+      ctx.fillRect(this.x - 12, this.y - 15, 24, 10);
+    } else if (this.type === "fast") {
+      ctx.fillStyle = "green";
+      ctx.fillRect(this.x - 5, this.y - 15, 5, 20);
+    }
+
+    if (selectedTower === this) {
+      ctx.beginPath();
+      ctx.strokeStyle = "rgba(0, 0, 255, 0.3)";
+      ctx.arc(this.x, this.y, this.range, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  }
+
+  update() {
+    this.cooldown--;
+    if (this.cooldown <= 0) {
+      const target = enemies.find(e => {
+        const dx = e.x - this.x;
+        const dy = e.y - this.y;
+        return Math.sqrt(dx * dx + dy * dy) < this.range;
+      });
+
+      if (target) {
+        bullets.push(new Bullet(this.x, this.y, target));
+        this.cooldown = this.type === "fast" ? 10 : this.type === "blaster" ? 15 : this.type === "sniper" ? 40 : 25;
+      }
+    }
+  }
+}
+
+class Bullet {
+  constructor(x, y, target) {
+    this.x = x;
+    this.y = y;
+    this.target = target;
+    this.speed = 6;
+  }
+
+  update() {
+    const dx = this.target.x - this.x;
+    const dy = this.target.y - this.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < 5) {
+      this.target.hp -= 10;
+      return true;
+    }
+    this.x += (dx / dist) * this.speed;
+    this.y += (dy / dist) * this.speed;
+    return false;
+  }
+
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = "black";
+    ctx.fill();
+  }
+}
+
+class Enemy {
+  constructor(hp, speed) {
+    this.x = 0;
+    this.y = 120 + Math.random() * 360;
+    this.hp = hp;
+    this.maxHp = hp;
+    this.speed = speed;
+    this.width = 20;
+    this.height = 20;
+  }
+
+  update() {
+    this.x += this.speed;
+  }
+
+  draw() {
+    ctx.fillStyle = "red";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = "green";
+    ctx.fillRect(this.x, this.y - 5, this.width * (this.hp / this.maxHp), 4);
+  }
+}
+
+function spawnWave() {
+  for (let i = 0; i < wave * 3; i++) {
+    setTimeout(() => {
+      const hp = 40 + wave * 10;
+      const speed = 1 + wave * 0.2;
+      enemies.push(new Enemy(hp, speed));
+    }, i * 400);
+  }
+}
+
+function getRandomQuestion() {
+  const questions = [
+    { q: "5 + 7 =", a: "12" },
+    { q: "9 x 6 =", a: "54" },
+    { q: "15 - 8 =", a: "7" },
+    { q: "12 ÷ 4 =", a: "3" },
+    { q: "8 x 7 =", a: "56" },
+    { q: "3 x 4 =", a: "12" },
+    { q: "20 - 11 =", a: "9" },
+    { q: "18 ÷ 2 =", a: "9" },
+    { q: "10 + 3 =", a: "13" },
+    { q: "6 x 7 =", a: "42" }
+  ];
+  return questions[Math.floor(Math.random() * questions.length)];
+}
+
+canvas.addEventListener("click", function (e) {
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  for (let tower of towers) {
+    const dx = tower.x - x;
+    const dy = tower.y - y;
+    if (Math.sqrt(dx * dx + dy * dy) < 20) {
+      selectedTower = tower;
+      return;
+    }
+  }
+
+  const question = getRandomQuestion();
+  const answer = prompt(`Solve: ${question.q}`);
+  if (answer !== question.a) {
+    alert("Incorrect. No tower placed.");
+    return;
+  }
+
+  const type = prompt("Type of tower?\n(basic - $30, sniper - $50, blaster - $100, fast - $80)").toLowerCase();
+
+  if (type in towerPrices) {
+    const cost = towerPrices[type];
+    if (gold >= cost) {
+      towers.push(new Tower(x, y, type));
+      gold -= cost;
+      updateUI();
+    } else {
+      alert("Not enough gold!");
+    }
+  } else {
+    alert("Invalid tower type.");
+  }
+});
+
+document.getElementById("startWaveBtn").addEventListener("click", () => {
+  if (!waveInProgress) {
+    waveInProgress = true;
+    frame = 0;
+    spawnWave();
+    document.getElementById("startWaveBtn").disabled = true;
+  }
+});
+
+function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  frame++;
+
+  for (let tower of towers) {
+    tower.update();
+    tower.draw();
+  }
+
+  for (let i = bullets.length - 1; i >= 0; i--) {
+    let bullet = bullets[i];
+    if (bullet.update()) {
+      bullets.splice(i, 1);
+    } else {
+      bullet.draw();
+    }
+  }
+
+  for (let i = enemies.length - 1; i >= 0; i--) {
+    let e = enemies[i];
+    e.update();
+    e.draw();
+
+    if (e.hp <= 0) {
+      gold += Math.floor(e.maxHp / 5);
+      updateUI();
+      enemies.splice(i, 1);
+    } else if (e.x > canvas.width) {
+      enemies.splice(i, 1);
+    }
+  }
+
+  if (waveInProgress && enemies.length === 0 && frame > 100) {
+    wave++;
+    gold += wave * 10;
+    updateUI();
+    waveInProgress = false;
+    document.getElementById("startWaveBtn").disabled = false;
+  }
+
+  requestAnimationFrame(gameLoop);
+}
+
+updateUI();
+gameLoop();
+</script>
+</html>
