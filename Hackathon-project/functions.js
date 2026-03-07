@@ -18,9 +18,13 @@ function getText(id){
 
 function load(){
     flashcardIndex = 0;
-    questionList = JSON.parse(localStorage.getItem("questions"));
-    answerList = JSON.parse(localStorage.getItem("answers"));
-    setText("flashcardTextArea", questionList[flashcardIndex] + "?");
+    questionList = JSON.parse(localStorage.getItem("questions")) || [];
+    answerList = JSON.parse(localStorage.getItem("answers")) || [];
+    if (questionList.length > 0){
+        setText("flashcardTextArea", questionList[flashcardIndex] + "?");
+    } else {
+        setText("flashcardTextArea", "No flashcards available");
+    }
 }
 
 function enterFlashcard(){
@@ -53,31 +57,51 @@ function flashcardDisplay(){
 }
 
 function leftPress() {
-    if (flashcardIndex > 0){
-        flashcardIndex--;
+    if (questionList.length > 0){
+        if (flashcardIndex > 0){
+            flashcardIndex--;
+        }
+        setText("flashcardTextArea", questionList[flashcardIndex] + "?");
     }
-    setText("flashcardTextArea", questionList[flashcardIndex] + "?");
 }
 
 function rightPress(){
-    if (flashcardIndex < (questionList.length - 1)){
-        flashcardIndex++;
+    if (questionList.length > 0){
+        if (flashcardIndex < (questionList.length - 1)){
+            flashcardIndex++;
+        }
+        setText("flashcardTextArea", questionList[flashcardIndex] + "?");
     }
-    setText("flashcardTextArea", questionList[flashcardIndex] + "?");
-    console.log(questionList[flashcardIndex] + "?");
+}
+
+function deleteCard(){
+    if (questionList.length > 0){
+        questionList.splice(flashcardIndex, 1);
+        answerList.splice(flashcardIndex, 1);
+        localStorage.setItem("questions", JSON.stringify(questionList));
+        localStorage.setItem("answers", JSON.stringify(answerList));
+        
+        if (questionList.length === 0){
+            setText("flashcardTextArea", "No flashcards available");
+            flashcardIndex = 0;
+        } else {
+            if (flashcardIndex >= questionList.length){
+                flashcardIndex = questionList.length - 1;
+            }
+            setText("flashcardTextArea", questionList[flashcardIndex] + "?");
+        }
+    }
 }
 
 function flipCard(){
-    if (getText("flashcardTextArea") === questionList[flashcardIndex] + "?"){
-       setText("flashcardTextArea", answerList[flashcardIndex]);
+    if (questionList.length > 0){
+        if (getText("flashcardTextArea") === questionList[flashcardIndex] + "?"){
+           setText("flashcardTextArea", answerList[flashcardIndex]);
+        }
+        else if (getText("flashcardTextArea") === answerList[flashcardIndex]){
+            setText("flashcardTextArea", (questionList[flashcardIndex] + "?"));
+        }
     }
-    else if (getText("flashcardTextArea") === answerList[flashcardIndex]){
-        setText("flashcardTextArea", (questionList[flashcardIndex] + "?"));
-    }
-    console.log(questionList[flashcardIndex] + "?");
-    console.log(flashcardIndex);
-    console.log(questionList);
-    console.log(answerList);
 }
 
 function enterAssignment(){
