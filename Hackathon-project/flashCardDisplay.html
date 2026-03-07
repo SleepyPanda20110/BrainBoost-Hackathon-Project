@@ -1,4 +1,4 @@
-<html lang="en">
+<!--<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,5 +62,91 @@
             <button id="delete_button" onclick="deleteCard()" class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition">Delete Card</button>
         </div>
     </div>
+</body>
+</html>
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Flashcards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="flashcard.css">
+    <script src="functions.js" defer></script>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen" style="background-color: rgb(34, 31, 31);">
+
+  <div class="menu-container">
+    <div class="hamburger" id="hamburgerButton">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="dropdown" id="dropdownMenu">
+      <a href="mainPage.html">Home Page</a>
+      <a href="flashcardgenerator.html">Flash Card Generator</a>
+      <a href="assignmentListPage.html">Assignment List</a>
+      <a href="minigame.html">Minigame</a>
+      <a href="gameQuestionsPage.html">Game Questions</a>
+    </div>
+  </div>
+
+  <script>
+    const button = document.getElementById("hamburgerButton");
+    const menu = document.getElementById("dropdownMenu");
+    button.addEventListener("click", function(event) {
+      event.stopPropagation();
+      menu.classList.toggle("show");
+    });
+    window.addEventListener("click", function(event) {
+      if (!menu.contains(event.target) && !button.contains(event.target)) {
+        menu.classList.remove("show");
+      }
+    });
+  </script>
+
+  <div class="w-full max-w-2xl px-4 py-8">
+    <h1 class="text-4xl font-bold text-center text-white mb-2">Flash Card Deck</h1>
+    <h3 id="loadText" class="text-center text-gray-400 mb-8">Click load to display your cards</h3>
+
+    <!-- Flip card structure -->
+    <div class="flex justify-center mb-8">
+      <div class="flashcard-scene" onclick="flipCard()">
+        <div class="flashcard" id="flashcardInner">
+
+          <!-- Front: question -->
+          <div class="flashcard__face flashcard__face--front">
+            <textarea
+              id="flashcardTextArea"
+              name="flashCardText"
+              readonly
+              style="resize: none;"
+              class="w-full h-full p-4 text-center bg-transparent border-none outline-none text-lg font-semibold text-gray-800"
+            ></textarea>
+          </div>
+
+          <!-- Back: answer -->
+          <div class="flashcard__face flashcard__face--back">
+            <p id="flashcardAnswer" class="text-center text-lg font-semibold text-white px-6"></p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrow buttons -->
+    <div class="flex justify-center gap-4 mb-8">
+      <button onclick="leftPress()" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition">⟵ Previous</button>
+      <button onclick="rightPress()" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition">Next ⟶</button>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="flex justify-center gap-3 flex-wrap">
+      <button onclick="load()" class="px-6 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition">Load</button>
+      <button onclick="flipCard()" class="px-6 py-2 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition">Flip Card</button>
+      <button onclick="deleteCard()" class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition">Delete Card</button>
+    </div>
+  </div>
+
 </body>
 </html>

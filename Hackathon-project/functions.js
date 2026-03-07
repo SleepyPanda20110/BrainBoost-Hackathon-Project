@@ -16,7 +16,7 @@ function getText(id){
     return document.getElementById(id).value;
 }
 
-function load(){
+/*function load(){
     // some pages don't use the card-flip UI
     const cardEl = document.querySelector('.flashcard');
     if (cardEl) cardEl.classList.remove('flipped');
@@ -24,6 +24,18 @@ function load(){
     flashcardIndex = 0;
     questionList = JSON.parse(localStorage.getItem("questions")) || [];
     answerList = JSON.parse(localStorage.getItem("answers")) || [];
+    if (questionList.length > 0){
+        setText("flashcardTextArea", questionList[flashcardIndex] + "?");
+    } else {
+        setText("flashcardTextArea", "No flashcards available");
+    }
+}*/
+
+function load(){
+    flashcardIndex = 0;
+    questionList = JSON.parse(localStorage.getItem("questions")) || [];
+    answerList = JSON.parse(localStorage.getItem("answers")) || [];
+    document.getElementById("flashcardInner").classList.remove("flipped");
     if (questionList.length > 0){
         setText("flashcardTextArea", questionList[flashcardIndex] + "?");
     } else {
@@ -64,7 +76,7 @@ function flashcardDisplay(){
     console.log(answerList);
 }
 
-function leftPress() {
+/*function leftPress() {
     const cardEl = document.querySelector('.flashcard');
     if (cardEl) cardEl.classList.remove('flipped');
 
@@ -74,9 +86,16 @@ function leftPress() {
         }
         setText("flashcardTextArea", questionList[flashcardIndex] + "?");
     }
+}*/
+function leftPress() {
+    if (questionList.length > 0){
+        if (flashcardIndex > 0) flashcardIndex--;
+        document.getElementById("flashcardInner").classList.remove("flipped");
+        setText("flashcardTextArea", questionList[flashcardIndex] + "?");
+    }
 }
 
-function rightPress(){
+/*function rightPress(){
     if (questionList.length > 0){
         const cardEl = document.querySelector('.flashcard');
         if (cardEl) cardEl.classList.remove('flipped');
@@ -86,9 +105,16 @@ function rightPress(){
         }
         setText("flashcardTextArea", questionList[flashcardIndex] + "?");
     }
+}*/
+function rightPress(){
+    if (questionList.length > 0){
+        if (flashcardIndex < questionList.length - 1) flashcardIndex++;
+        document.getElementById("flashcardInner").classList.remove("flipped");
+        setText("flashcardTextArea", questionList[flashcardIndex] + "?");
+    }
 }
 
-function deleteCard(){
+/*function deleteCard(){
     if (questionList.length > 0){
         questionList.splice(flashcardIndex, 1);
         answerList.splice(flashcardIndex, 1);
@@ -105,9 +131,25 @@ function deleteCard(){
             setText("flashcardTextArea", questionList[flashcardIndex] + "?");
         }
     }
+}*/
+function deleteCard(){
+    if (questionList.length > 0){
+        questionList.splice(flashcardIndex, 1);
+        answerList.splice(flashcardIndex, 1);
+        localStorage.setItem("questions", JSON.stringify(questionList));
+        localStorage.setItem("answers", JSON.stringify(answerList));
+        document.getElementById("flashcardInner").classList.remove("flipped");
+        if (questionList.length === 0){
+            setText("flashcardTextArea", "No flashcards available");
+            flashcardIndex = 0;
+        } else {
+            if (flashcardIndex >= questionList.length) flashcardIndex = questionList.length - 1;
+            setText("flashcardTextArea", questionList[flashcardIndex] + "?");
+        }
+    }
 }
 
-function flipCard(){
+/*function flipCard(){
     if (questionList.length > 0){
         const cardEl = document.querySelector('.flashcard');
         if (cardEl) cardEl.classList.toggle('flipped');
@@ -117,6 +159,17 @@ function flipCard(){
         }
         else if (getText("flashcardTextArea") === answerList[flashcardIndex]){
             setText("flashcardTextArea", (questionList[flashcardIndex] + "?"));
+        }
+    }
+}*/
+function flipCard(){
+    if (questionList.length > 0){
+        var card = document.getElementById("flashcardInner");
+        if (!card.classList.contains("flipped")){
+            document.getElementById("flashcardAnswer").textContent = answerList[flashcardIndex];
+            card.classList.add("flipped");
+        } else {
+            card.classList.remove("flipped");
         }
     }
 }
