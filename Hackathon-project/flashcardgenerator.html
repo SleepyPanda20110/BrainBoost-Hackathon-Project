@@ -1,24 +1,13 @@
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="flashcard.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="functions.js"></script>
+    <title>Flash Card Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="flashcard.css">
+    <script src="functions.js" defer></script>
 </head>
-<body>
-    
-    <h1>MAKE FLASHCARDS</h1>
-    <p>Create flashcards to help you study navigate using the buttons</p>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Click Menu</title>
- 
-</head>
-</body>
-<body>
+<body class="flex flex-col items-center justify-center min-h-screen bg-gray-50">
 
   <div class="menu-container">
     <div class="hamburger" id="hamburgerButton">
@@ -30,61 +19,88 @@
     <div class="dropdown" id="dropdownMenu">
       <a href="mainPage.html">Home Page</a>
       <a href="flashCardDisplay.html">Your Flashcards</a>
-      <a href="assignmentListPage.html">Asignment List</a>
+      <a href="assignmentListPage.html">Assignment List</a>
       <a href="minigame.html">Minigame</a>
       <a href="gameQuestionsPage.html">Game Questions</a>
     </div>
   </div>
-<div class="flashcard_Box">                                                           
-  <button onclick="enterFlashcard()">Add Flashcard</button>
 
-  <form class="flashcard-form">
-    <div class="form-row">
-      <label for="question">Question:</label>
-      <input type="text" id="questionInput" name="question">
+  <div class="w-full max-w-2xl px-4 py-8">
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-2">Create Flashcards</h1>
+    <p class="text-center text-gray-600 mb-8">Add questions and answers to create your study flashcards</p>
+
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <form class="space-y-6">
+        <div>
+          <label for="questionInput" class="block text-lg font-semibold text-gray-700 mb-2">Question:</label>
+          <input 
+            type="text" 
+            id="questionInput" 
+            name="question"
+            placeholder="Enter your question here..."
+            class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-base"
+          >
+        </div>
+
+        <div>
+          <label for="answerInput" class="block text-lg font-semibold text-gray-700 mb-2">Answer:</label>
+          <input 
+            type="text" 
+            id="answerInput" 
+            name="answer"
+            placeholder="Enter the answer here..."
+            class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-base"
+          >
+        </div>
+
+        <div class="flex justify-center gap-4 pt-4">
+          <button 
+            type="button"
+            onclick="enterFlashcard()" 
+            class="px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition duration-200"
+          >
+            Add Flashcard
+          </button>
+          <button 
+            type="button"
+            onclick="document.getElementById('questionInput').value = ''; document.getElementById('answerInput').value = '';" 
+            class="px-8 py-3 bg-gray-400 hover:bg-gray-500 text-white font-semibold rounded-lg transition duration-200"
+          >
+            Clear
+          </button>
+        </div>
+      </form>
     </div>
 
-    <div class="form-row">
-      <label for="answer">Answer:</label>
-      <input type="text" id="answerInput" name="answer">
+    <div class="mt-10 flex justify-center gap-4 flex-wrap">
+      <a href="flashCardDisplay.html">
+        <button class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition duration-200">
+          View Your Flashcards
+        </button>
+      </a>
+      <a href="mainpage.html">
+        <button class="px-8 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition duration-200">
+          Back to Home
+        </button>
+      </a>
     </div>
-  </form>
-</div>
+  </div>
+
   <script>
-    const button = document.getElementById("hamburgerButton");
-    const menu = document.getElementById("dropdownMenu");
+    const hamburgerButton = document.getElementById("hamburgerButton");
+    const dropdownMenu = document.getElementById("dropdownMenu");
 
-    button.addEventListener("click", function (event) {
-      event.stopPropagation(); // prevent closing immediately
-      menu.classList.toggle("show");
+    hamburgerButton.addEventListener("click", function (event) {
+      event.stopPropagation();
+      dropdownMenu.classList.toggle("show");
     });
 
     window.addEventListener("click", function (event) {
-      if (!menu.contains(event.target) && !button.contains(event.target)) {
-        menu.classList.remove("show");
+      if (!dropdownMenu.contains(event.target) && !hamburgerButton.contains(event.target)) {
+        dropdownMenu.classList.remove("show");
       }
-
     });
- 
- 
-
   </script>
 
 </body>
 </html>
-    <div class="flashcard">
-    <a href = "mainpage.html">
-    <button>Back to Home Screen</button>
-    </a>
-    <a href= "flashCardDisplay.html">
-        <button id="flashcardDisplayButton" onclick="flashcardDisplay()">Check out your flashcards</button>
-    </a>
-    </div>
-    
-
-    <script>
-
-
-
-    </script>
-
