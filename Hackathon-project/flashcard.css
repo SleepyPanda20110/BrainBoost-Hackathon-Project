@@ -1,3 +1,4 @@
+/*
 h1 {
     color: rgb(249, 249, 249);
     width: 100%;
@@ -252,4 +253,99 @@ label {
 
 #info3 {
   color: black;
+}
+  */
+/* ── Base ── */
+body {
+  font-family: Arial, sans-serif;
+  background-color: rgb(34, 31, 31);
+}
+
+/* ── Hamburger Menu ── */
+.menu-container {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+
+.hamburger {
+  width: 30px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.hamburger div {
+  height: 4px;
+  background-color: rgb(246, 240, 240);
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+.dropdown {
+  display: none;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 50px;
+  position: absolute;
+  border-radius: 8px;
+  min-width: 180px;
+}
+
+.dropdown.show {
+  display: flex;
+}
+
+.dropdown a {
+  text-decoration: none;
+  color: #333;
+  padding: 5px;
+  transition: 0.2s;
+}
+
+.dropdown a:hover {
+  background-color: #ddd;
+}
+
+/* ── Card container ── */
+.grey-box {
+  background-color: rgb(45, 42, 42);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid rgb(70, 65, 65);
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+/* ── Textarea ── */
+#flashcardTextArea {
+  width: 100%;
+  height: 220px;
+  resize: none;
+  cursor: pointer;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: #ffffff;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  font-family: sans-serif;
+  color: rgb(30, 30, 30);
+  line-height: 1.6;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#flashcardTextArea:hover {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+}
+
+#flashcardTextArea:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.25);
 }

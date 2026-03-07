@@ -17,6 +17,8 @@ function getText(id){
 }
 
 function load(){
+    document.querySelector('.flashcard').classList.remove('flipped');
+    
     flashcardIndex = 0;
     questionList = JSON.parse(localStorage.getItem("questions")) || [];
     answerList = JSON.parse(localStorage.getItem("answers")) || [];
@@ -28,6 +30,10 @@ function load(){
 }
 
 function enterFlashcard(){
+    // Load existing flashcards from localStorage
+    questionList = JSON.parse(localStorage.getItem("questions")) || [];
+    answerList = JSON.parse(localStorage.getItem("answers")) || [];
+    
     var question = getText("questionInput");
     var answer = getText("answerInput");
     if ((question != "") && (answer != "")){
@@ -57,6 +63,8 @@ function flashcardDisplay(){
 }
 
 function leftPress() {
+    document.querySelector('.flashcard').classList.remove('flipped');
+
     if (questionList.length > 0){
         if (flashcardIndex > 0){
             flashcardIndex--;
@@ -67,6 +75,8 @@ function leftPress() {
 
 function rightPress(){
     if (questionList.length > 0){
+        document.querySelector('.flashcard').classList.remove('flipped');
+
         if (flashcardIndex < (questionList.length - 1)){
             flashcardIndex++;
         }
@@ -95,6 +105,8 @@ function deleteCard(){
 
 function flipCard(){
     if (questionList.length > 0){
+        document.querySelector('.flashcard').classList.toggle('flipped');
+
         if (getText("flashcardTextArea") === questionList[flashcardIndex] + "?"){
            setText("flashcardTextArea", answerList[flashcardIndex]);
         }
