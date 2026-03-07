@@ -66,6 +66,7 @@
     <div class="dropdown" id="dropdownMenu">
       <a href="flashcardgenerator.html">Flash Card Generator </a>
       <a href="flashCardDisplay.html">Your Flashcards</a>
+      <a href="gameQuestionsPage.html">Game Questions</a>
       <a href="assignmentListPage.html">Asignment List</a>
       <a href="mainpage.html">Home Page</a>
     </div>
@@ -234,18 +235,25 @@ function spawnWave() {
 }
 
 function getRandomQuestion() {
-  const questions = [
-    { q: "5 + 7 =", a: "12" },
-    { q: "9 x 6 =", a: "54" },
-    { q: "15 - 8 =", a: "7" },
-    { q: "12 ÷ 4 =", a: "3" },
-    { q: "8 x 7 =", a: "56" },
-    { q: "3 x 4 =", a: "12" },
-    { q: "20 - 11 =", a: "9" },
-    { q: "18 ÷ 2 =", a: "9" },
-    { q: "10 + 3 =", a: "13" },
-    { q: "6 x 7 =", a: "42" }
-  ];
+  // Load custom questions from localStorage, fallback to default questions
+  let questions = JSON.parse(localStorage.getItem("gameQuestions")) || [];
+  
+  // Use default questions if no custom questions exist
+  if (questions.length === 0) {
+    questions = [
+      { q: "5 + 7 =", a: "12" },
+      { q: "9 x 6 =", a: "54" },
+      { q: "15 - 8 =", a: "7" },
+      { q: "12 ÷ 4 =", a: "3" },
+      { q: "8 x 7 =", a: "56" },
+      { q: "3 x 4 =", a: "12" },
+      { q: "20 - 11 =", a: "9" },
+      { q: "18 ÷ 2 =", a: "9" },
+      { q: "10 + 3 =", a: "13" },
+      { q: "6 x 7 =", a: "42" }
+    ];
+  }
+  
   return questions[Math.floor(Math.random() * questions.length)];
 }
 
