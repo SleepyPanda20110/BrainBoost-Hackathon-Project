@@ -17,7 +17,9 @@ function getText(id){
 }
 
 function load(){
-    document.querySelector('.flashcard').classList.remove('flipped');
+    // some pages don't use the card-flip UI
+    const cardEl = document.querySelector('.flashcard');
+    if (cardEl) cardEl.classList.remove('flipped');
     
     flashcardIndex = 0;
     questionList = JSON.parse(localStorage.getItem("questions")) || [];
@@ -63,7 +65,8 @@ function flashcardDisplay(){
 }
 
 function leftPress() {
-    document.querySelector('.flashcard').classList.remove('flipped');
+    const cardEl = document.querySelector('.flashcard');
+    if (cardEl) cardEl.classList.remove('flipped');
 
     if (questionList.length > 0){
         if (flashcardIndex > 0){
@@ -75,7 +78,8 @@ function leftPress() {
 
 function rightPress(){
     if (questionList.length > 0){
-        document.querySelector('.flashcard').classList.remove('flipped');
+        const cardEl = document.querySelector('.flashcard');
+        if (cardEl) cardEl.classList.remove('flipped');
 
         if (flashcardIndex < (questionList.length - 1)){
             flashcardIndex++;
@@ -105,7 +109,8 @@ function deleteCard(){
 
 function flipCard(){
     if (questionList.length > 0){
-        document.querySelector('.flashcard').classList.toggle('flipped');
+        const cardEl = document.querySelector('.flashcard');
+        if (cardEl) cardEl.classList.toggle('flipped');
 
         if (getText("flashcardTextArea") === questionList[flashcardIndex] + "?"){
            setText("flashcardTextArea", answerList[flashcardIndex]);
