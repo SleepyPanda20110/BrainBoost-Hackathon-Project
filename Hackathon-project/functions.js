@@ -217,7 +217,7 @@ function displayAssignments(){
     const datesDiv = document.getElementById("column2");
 
     if (assignmentsDiv && subjectsDiv && datesDiv) {
-        assignmentsDiv.innerHTML = nameList.length > 0 ? nameList.map((name, index) => `<div class="py-1">• ${name} <button onclick="deleteAssignment(${index})" class="ml-2 bg-red-500 text-white px-2 py-1 rounded">Delete</button></div>`).join('') : '<div class="text-gray-500">No assignments yet</div>';
+        assignmentsDiv.innerHTML = nameList.length > 0 ? nameList.map((name, index) => `<div class="py-1">• ${name} <button onclick="deleteAssignment(${index})" class="ml-2 bg-red-500 text-white px-2 py-1 rounded">Finish</button></div>`).join('') : '<div class="text-gray-500">No assignments yet</div>';
         subjectsDiv.innerHTML = subjectList.length > 0 ? subjectList.map(subject => `<div class="py-1">• ${subject}</div>`).join('') : '<div class="text-gray-500">No subjects yet</div>';
         datesDiv.innerHTML = dateList.length > 0 ? dateList.map(date => `<div class="py-1">• ${date}</div>`).join('') : '<div class="text-gray-500">No dates yet</div>';
     }
