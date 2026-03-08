@@ -175,53 +175,68 @@ function flipCard(){
 }
 
 function enterAssignment(){
+    // Load existing assignments from localStorage
+    nameList = JSON.parse(localStorage.getItem("assignmentNames")) || [];
+    subjectList = JSON.parse(localStorage.getItem("assignmentSubjects")) || [];
+    dateList = JSON.parse(localStorage.getItem("assignmentDates")) || [];
+
     var name = getText("nameInput");
     var subject = getText("subjectInput");
     var date = getText("dateInput");
-    var temp1 = "Assignments: ";
-    var temp2 = "Classes: ";
-    var temp3 = "Due Date: ";
 
     if ((name != "") && (subject != "") && (date != "")){
         nameList.push(name);
         subjectList.push(subject);
         dateList.push(date);
 
-        console.log(nameList)
-        console.log(subjectList)
-        console.log(dateList)
+        localStorage.setItem("assignmentNames", JSON.stringify(nameList));
+        localStorage.setItem("assignmentSubjects", JSON.stringify(subjectList));
+        localStorage.setItem("assignmentDates", JSON.stringify(dateList));
 
-        //localStorage.setItem("names", JSON.stringify(nameList));
-        //localStorage.setItem("subjects", JSON.stringify(subjectList));
-        //localStorage.setItem("dates", JSON.stringify(dateList));
+        console.log(nameList);
+        console.log(subjectList);
+        console.log(dateList);
 
         setText("nameInput", "");
         setText("subjectInput", "");
         setText("dateInput", "");
 
-        
+        displayAssignments();
     } else {
         alert("Please fill all of the text inputs");
     }
+}
 
-    for (var i = 0; i < nameList.length; i++){
-        temp1 = temp1 + "  -  " + nameList[i];
-        //nameList = JSON.parse(localStorage.getItem("names"));
-    }
-    for (var j = 0; j < subjectList.length; j++){
-        temp2 = temp2 + "  -  " + subjectList[j];
-        //subjectList = JSON.parse(localStorage.getItem("subjects"));
-    }
-    for (var k = 0; k < dateList.length; k++){
-        temp3 = temp3 + "  -  " + dateList[k];
-        //dateList = JSON.parse(localStorage.getItem("dates"));
-    }
+function displayAssignments(){
+    nameList = JSON.parse(localStorage.getItem("assignmentNames")) || [];
+    subjectList = JSON.parse(localStorage.getItem("assignmentSubjects")) || [];
+    dateList = JSON.parse(localStorage.getItem("assignmentDates")) || [];
 
-    document.getElementsByClassName("column")[0].innerHTML = temp1;
-    document.getElementsByClassName("column1")[0].innerHTML = temp2;
-    document.getElementsByClassName("column2")[0].innerHTML = temp3;
+    const assignmentsDiv = document.getElementById("column");
+    const subjectsDiv = document.getElementById("column1");
+    const datesDiv = document.getElementById("column2");
 
-    console.log(temp1)
-    console.log(temp2)
-    console.log(temp3)
+    if (assignmentsDiv && subjectsDiv && datesDiv) {
+        assignmentsDiv.innerHTML = nameList.length > 0 ? nameList.map((name, index) => `<div class="py-1">• ${name} <button onclick="deleteAssignment(${index})" class="ml-2 bg-red-500 text-white px-2 py-1 rounded">Delete</button></div>`).join('') : '<div class="text-gray-500">No assignments yet</div>';
+        subjectsDiv.innerHTML = subjectList.length > 0 ? subjectList.map(subject => `<div class="py-1">• ${subject}</div>`).join('') : '<div class="text-gray-500">No subjects yet</div>';
+        datesDiv.innerHTML = dateList.length > 0 ? dateList.map(date => `<div class="py-1">• ${date}</div>`).join('') : '<div class="text-gray-500">No dates yet</div>';
+    }
+}
+
+function deleteAssignment(index) {
+    let nameList = JSON.parse(localStorage.getItem("assignmentNames")) || [];
+    let subjectList = JSON.parse(localStorage.getItem("assignmentSubjects")) || [];
+    let dateList = JSON.parse(localStorage.getItem("assignmentDates")) || [];
+
+    if (index >= 0 && index < nameList.length) {
+        nameList.splice(index, 1);
+        subjectList.splice(index, 1);
+        dateList.splice(index, 1);
+
+        localStorage.setItem("assignmentNames", JSON.stringify(nameList));
+        localStorage.setItem("assignmentSubjects", JSON.stringify(subjectList));
+        localStorage.setItem("assignmentDates", JSON.stringify(dateList));
+
+        displayAssignments();
+    }
 }

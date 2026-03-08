@@ -1,3 +1,4 @@
+<!--
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -96,6 +97,118 @@
     });
 
     window.addEventListener("click", function (event) {
+      if (!dropdownMenu.contains(event.target) && !hamburgerButton.contains(event.target)) {
+        dropdownMenu.classList.remove("show");
+      }
+    });
+  </script>
+
+</body>
+</html>
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Card Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="flashcard.css">
+    <script src="functions.js" defer></script>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen px-6 py-10" style="background-color: rgb(34, 31, 31);">
+
+  <!-- Hamburger Menu -->
+  <div class="menu-container">
+    <div class="hamburger" id="hamburgerButton">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="dropdown" id="dropdownMenu">
+      <a href="mainPage.html">Home Page</a>
+      <a href="flashCardDisplay.html">Your Flashcards</a>
+      <a href="assignmentListPage.html">Assignment List</a>
+      <a href="minigame.html">Minigame</a>
+      <a href="gameQuestionsPage.html">Game Questions</a>
+    </div>
+  </div>
+
+  <div class="w-full max-w-lg px-4 py-8">
+
+    <!-- Title -->
+    <h1 class="text-4xl font-bold text-center text-white mb-2">Create Flashcards</h1>
+    <p class="text-center text-gray-400 mb-8">Add questions and answers to build your study deck</p>
+
+    <!-- Form card -->
+    <div class="rounded-lg p-8 border border-gray-600" style="background-color: rgb(45, 42, 42);">
+      <div class="flex flex-col gap-6">
+
+        <div class="flex flex-col gap-1">
+          <label for="questionInput" class="text-gray-300 text-sm font-semibold">Question</label>
+          <input
+            type="text"
+            id="questionInput"
+            name="question"
+            placeholder="Enter your question here..."
+            class="px-4 py-3 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 text-base"
+          >
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="answerInput" class="text-gray-300 text-sm font-semibold">Answer</label>
+          <input
+            type="text"
+            id="answerInput"
+            name="answer"
+            placeholder="Enter the answer here..."
+            class="px-4 py-3 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 text-base"
+          >
+        </div>
+
+        <div class="flex justify-center gap-4 pt-2">
+          <button
+            type="button"
+            onclick="enterFlashcard()"
+            class="px-8 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition">
+            + Add Flashcard
+          </button>
+          <button
+            type="button"
+            onclick="document.getElementById('questionInput').value = ''; document.getElementById('answerInput').value = '';"
+            class="px-8 py-3 bg-gray-600 hover:bg-gray-500 text-white font-semibold rounded-lg transition">
+            Clear
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom nav buttons -->
+    <div class="mt-8 flex justify-center gap-4 flex-wrap">
+      <a href="flashCardDisplay.html">
+        <button class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition">
+          View Flashcards
+        </button>
+      </a>
+      <a href="mainPage.html">
+        <button class="px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition">
+          Back to Home
+        </button>
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    const hamburgerButton = document.getElementById("hamburgerButton");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+    hamburgerButton.addEventListener("click", function(event) {
+      event.stopPropagation();
+      dropdownMenu.classList.toggle("show");
+    });
+
+    window.addEventListener("click", function(event) {
       if (!dropdownMenu.contains(event.target) && !hamburgerButton.contains(event.target)) {
         dropdownMenu.classList.remove("show");
       }

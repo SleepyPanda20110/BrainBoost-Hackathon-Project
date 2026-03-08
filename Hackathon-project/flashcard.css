@@ -1,4 +1,4 @@
-/*
+
 h1 {
     color: rgb(249, 249, 249);
     width: 100%;
@@ -10,25 +10,6 @@ h1 {
     font-size: 60px;
 }
 
-p {
-  color: white;
-  width: 80%;
-  padding: 10px;
-  text-align: center;
-  margin: 0 auto;
-}
-
-a {
-    display: inline-block;
-    text-align: center;
-}
-h3 {
-  color: white;
-  width: 1200px;
-  text-align: center;
-  margin: 0 auto;
-  font-size: 30px;
-}
 body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -47,6 +28,12 @@ body {
       cursor: pointer;
       display: flex;
       flex-direction: column;
+    }
+
+    .hamburger div {
+      background-color: #fffbfb;
+      height: 4px;
+      margin: 6px 0;
     }
 
     .hamburger div {
@@ -255,14 +242,8 @@ label {
   color: black;
 }
 
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: rgb(34, 31, 31);
-}
-
 /* ── Hamburger Menu ── */
-/*
+
 .menu-container {
   position: fixed;
   top: 10px;

@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,15 +12,6 @@
       position: absolute;
       top: 10px;
       left: 10px;
-    }
-    .hamburger {
-      width: 30px;
-      cursor: pointer;
-    }
-    .hamburger div {
-      background-color: #fffbfb;
-      height: 4px;
-      margin: 6px 0;
     }
     .dropdown {
       display: none;
@@ -87,7 +79,7 @@
 
 <button id="enterButton" onclick="enterAssignment()">Enter</button>
 
-  <!-- Hamburger Menu -->
+  
   <div class="menu-container">
     <div class="hamburger" id="hamburgerButton">
       <div></div>
@@ -140,6 +132,109 @@
         menu.classList.remove("show");
       }
     });
+
+    // Display assignments on page load
+    displayAssignments();
+  </script>
+
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment List</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="flashcard.css">
+</head>
+<body class="min-h-screen flex flex-col items-center px-6 py-10" style="background-color: rgb(34, 31, 31);">
+
+  <!-- Hamburger Menu -->
+  <div class="menu-container">
+    <div class="hamburger" id="hamburgerButton">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="dropdown" id="dropdownMenu">
+      <a href="mainPage.html">Home Page</a>
+      <a href="flashCardDisplay.html">Your Flashcards</a>
+      <a href="flashcardgenerator.html">Flash Card Generator</a>
+      <a href="minigame.html">Minigame</a>
+      <a href="gameQuestionsPage.html">Game Questions</a>
+    </div>
+  </div>
+
+  <!-- Title -->
+  <h1 class="text-4xl font-bold text-white mb-8 mt-4">Assignment List</h1>
+
+  <!-- Input form -->
+  <div class="w-full max-w-lg flex flex-col gap-4 mb-10">
+
+    <div class="flex flex-col gap-1">
+      <label class="text-gray-300 text-sm font-semibold" for="nameInput">Assignment Name</label>
+      <input type="text" id="nameInput" name="assignment" placeholder="Read 2 chapters"
+        class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500">
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label class="text-gray-300 text-sm font-semibold" for="subjectInput">Class</label>
+      <input type="text" id="subjectInput" name="class" placeholder="English"
+        class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500">
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label class="text-gray-300 text-sm font-semibold" for="dateInput">Due Date</label>
+      <input type="text" id="dateInput" name="date" placeholder="01/01/2025"
+        class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500">
+    </div>
+
+    <button onclick="enterAssignment()"
+      class="mt-2 px-6 py-2 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition">
+      + Add Assignment
+    </button>
+
+  </div>
+
+  <!-- Assignment columns -->
+  <div class="w-full max-w-4xl grid grid-cols-3 gap-4">
+
+    <div class="bg-gray-700 rounded-lg p-4 border border-gray-600 min-h-36">
+      <p class="text-purple-400 font-bold text-sm uppercase tracking-wider mb-3">Assignments</p>
+      <div class="column text-white text-sm" id="column">—</div>
+    </div>
+
+    <div class="bg-gray-700 rounded-lg p-4 border border-gray-600 min-h-36">
+      <p class="text-purple-400 font-bold text-sm uppercase tracking-wider mb-3">Classes</p>
+      <div class="column1 text-white text-sm" id="column1">—</div>
+    </div>
+
+    <div class="bg-gray-700 rounded-lg p-4 border border-gray-600 min-h-36">
+      <p class="text-purple-400 font-bold text-sm uppercase tracking-wider mb-3">Due Dates</p>
+      <div class="column2 text-white text-sm" id="column2">—</div>
+    </div>
+
+  </div>
+
+  <script src="functions.js"></script>
+  <script>
+    const button = document.getElementById("hamburgerButton");
+    const menu = document.getElementById("dropdownMenu");
+
+    button.addEventListener("click", function(event) {
+      event.stopPropagation();
+      menu.classList.toggle("show");
+    });
+
+    window.addEventListener("click", function(event) {
+      if (!menu.contains(event.target) && !button.contains(event.target)) {
+        menu.classList.remove("show");
+      }
+    });
+
+    displayAssignments();
   </script>
 
 </body>
